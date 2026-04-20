@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uzukhanye Nohe — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- Canvas for particles -->
+  <canvas id="particles"></canvas>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <span class="logo-bracket">&lt;</span>UN<span class="logo-bracket">/&gt;</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon">☀️</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#hero" class="mobile-link">Home</a></li>
+      <li><a href="#about" class="mobile-link">About</a></li>
+      <li><a href="#skills" class="mobile-link">Skills</a></li>
+      <li><a href="#projects" class="mobile-link">Projects</a></li>
+      <li><a href="#contact" class="mobile-link">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-greeting reveal">Hello, World! 👋</div>
+      <h1 class="hero-title reveal">
+        I'm <span class="gradient-text" id="typedName">Uzukhanye Nohe</span>
+      </h1>
+      <div class="hero-role reveal">
+        <span class="role-prefix">I'm a </span>
+        <span class="typed-role" id="typedRole"></span>
+        <span class="cursor-blink">|</span>
+      </div>
+      <p class="hero-desc reveal">
+        I craft beautiful, performant digital experiences that live at the intersection of design and technology.
+      </p>
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat">
+          <span class="stat-num" data-target="3">0</span>+
+          <span class="stat-label">Years Exp.</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="20">0</span>+
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num" data-target="15">0</span>+
+          <span class="stat-label">Clients</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="avatar-wrapper">
+        <div class="avatar-ring ring-1"></div>
+        <div class="avatar-ring ring-2"></div>
+        <div class="avatar-ring ring-3"></div>
+        <div class="avatar-circle">
+          <div class="avatar-initials">UN</div>
+        </div>
+        <div class="floating-badge badge-1">
+          <span>💻</span> Full-Stack
+        </div>
+        <div class="floating-badge badge-2">
+          <span>🎨</span> UI/UX
+        </div>
+        <div class="floating-badge badge-3">
+          <span>⚡</span> Performance
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">01. About Me</span>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text reveal-left">
+          <p>
+            I'm a passionate <strong>full-stack developer</strong> with a keen eye for design and a love for building elegant solutions. I thrive on turning complex problems into simple, beautiful, and intuitive digital experiences.
+          </p>
+          <p>
+            When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sketching UI concepts. I believe that great software is not just functional — it's a pleasure to use.
+          </p>
+          <div class="about-highlights">
+            <div class="highlight">
+              <span class="highlight-icon">🎓</span>
+              <div>
+                <strong>Education</strong>
+                <p>Computer Science Graduate</p>
+              </div>
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">🌍</span>
+              <div>
+                <strong>Location</strong>
+                <p>Available Worldwide (Remote)</p>
+              </div>
+            </div>
+            <div class="highlight">
+              <span class="highlight-icon">🚀</span>
+              <div>
+                <strong>Focus</strong>
+                <p>Web & Mobile Applications</p>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary" id="downloadCV">Download CV ↓</a>
+        </div>
+        <div class="about-card-stack reveal-right">
+          <div class="stack-card card-back"></div>
+          <div class="stack-card card-mid"></div>
+          <div class="stack-card card-front">
+            <div class="code-block">
+              <div class="code-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="code-filename">about.js</span>
+              </div>
+              <pre class="code-content"><span class="code-kw">const</span> <span class="code-var">developer</span> = {
+  <span class="code-key">name</span>: <span class="code-str">"Uzukhanye Nohe"</span>,
+  <span class="code-key">role</span>: <span class="code-str">"Full-Stack Dev"</span>,
+  <span class="code-key">passion</span>: <span class="code-str">"Building cool stuff"</span>,
+  <span class="code-key">skills</span>: [
+    <span class="code-str">"React"</span>, <span class="code-str">"Node.js"</span>,
+    <span class="code-str">"Python"</span>, <span class="code-str">"TypeScript"</span>
+  ],
+  <span class="code-key">available</span>: <span class="code-bool">true</span>,
+  <span class="code-key">coffee</span>: <span class="code-str">"always ☕"</span>
+};</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="section section-alt" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">02. Skills</span>
+        <h2 class="section-title">What I Work With</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title">Frontend</h3>
+          <div class="skill-bars">
+            <div class="skill-bar" data-skill="React / Next.js" data-level="90"></div>
+            <div class="skill-bar" data-skill="TypeScript" data-level="85"></div>
+            <div class="skill-bar" data-skill="CSS / Tailwind" data-level="92"></div>
+            <div class="skill-bar" data-skill="Vue.js" data-level="75"></div>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title">Backend</h3>
+          <div class="skill-bars">
+            <div class="skill-bar" data-skill="Node.js / Express" data-level="88"></div>
+            <div class="skill-bar" data-skill="Python / Django" data-level="80"></div>
+            <div class="skill-bar" data-skill="PostgreSQL" data-level="82"></div>
+            <div class="skill-bar" data-skill="GraphQL" data-level="72"></div>
+          </div>
+        </div>
+        <div class="skill-category reveal">
+          <h3 class="skill-category-title">Tools & Platforms</h3>
+          <div class="skill-bars">
+            <div class="skill-bar" data-skill="Git / GitHub" data-level="95"></div>
+            <div class="skill-bar" data-skill="Docker" data-level="78"></div>
+            <div class="skill-bar" data-skill="AWS / Vercel" data-level="75"></div>
+            <div class="skill-bar" data-skill="Figma" data-level="80"></div>
+          </div>
+        </div>
+      </div>
+      <div class="tech-orbit reveal">
+        <div class="orbit-title">Tech Stack</div>
+        <div class="orbit-ring">
+          <div class="orbit-item" style="--i:0">⚛️</div>
+          <div class="orbit-item" style="--i:1">🟨</div>
+          <div class="orbit-item" style="--i:2">🐍</div>
+          <div class="orbit-item" style="--i:3">🐳</div>
+          <div class="orbit-item" style="--i:4">☁️</div>
+          <div class="orbit-item" style="--i:5">🛠️</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">03. Projects</span>
+        <h2 class="section-title">What I've Built</h2>
+      </div>
+      <div class="filter-tabs reveal">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="web">Web</button>
+        <button class="filter-tab" data-filter="mobile">Mobile</button>
+        <button class="filter-tab" data-filter="ai">AI / ML</button>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card reveal" data-category="web">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:220">
+              <span>🛒</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">MongoDB</span>
+            </div>
+            <h3 class="project-title">E-Commerce Platform</h3>
+            <p class="project-desc">Full-featured online store with real-time inventory, payments via Stripe, and an admin dashboard.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Live Demo ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="ai">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:280">
+              <span>🤖</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">OpenAI</span>
+              <span class="tag">FastAPI</span>
+            </div>
+            <h3 class="project-title">AI Chat Assistant</h3>
+            <p class="project-desc">Context-aware chatbot with memory, file uploads, and multi-model routing for optimal responses.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Live Demo ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="mobile">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:160">
+              <span>💪</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">React Native</span>
+              <span class="tag">Expo</span>
+              <span class="tag">Firebase</span>
+            </div>
+            <h3 class="project-title">Fitness Tracker App</h3>
+            <p class="project-desc">Cross-platform mobile app for workout logging, progress charts, and personalized routines.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">App Store ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="web">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:30">
+              <span>📊</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">D3.js</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <h3 class="project-title">Analytics Dashboard</h3>
+            <p class="project-desc">Real-time data visualization platform with customizable charts, reports, and team collaboration.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Live Demo ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="ai">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:340">
+              <span>🎨</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Stable Diffusion</span>
+              <span class="tag">Flask</span>
+            </div>
+            <h3 class="project-title">AI Image Generator</h3>
+            <p class="project-desc">Web interface for generating, editing, and upscaling images using diffusion models.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Live Demo ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-category="web">
+          <div class="project-img">
+            <div class="project-placeholder" style="--hue:100">
+              <span>📝</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <div class="project-tags">
+              <span class="tag">Vue.js</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">TailwindCSS</span>
+            </div>
+            <h3 class="project-title">Collaborative Notes</h3>
+            <p class="project-desc">Real-time collaborative note-taking with rich text, tags, and instant sync across devices.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">Live Demo ↗</a>
+              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">04. Contact</span>
+        <h2 class="section-title">Let's Work Together</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal-left">
+          <p class="contact-desc">
+            Have a project in mind? Want to collaborate? Or just want to say hi? My inbox is always open.
+          </p>
+          <div class="contact-items">
+            <a href="mailto:uzukhanye@example.com" class="contact-item">
+              <span class="contact-icon">📧</span>
+              <span>uzukhanye@example.com</span>
+            </a>
+            <a href="#" class="contact-item">
+              <span class="contact-icon">💼</span>
+              <span>linkedin.com/in/uzukhanye</span>
+            </a>
+            <a href="#" class="contact-item">
+              <span class="contact-icon">🐙</span>
+              <span>github.com/uzukhanyenohe</span>
+            </a>
+            <a href="#" class="contact-item">
+              <span class="contact-icon">🐦</span>
+              <span>@uzukhanye</span>
+            </a>
+          </div>
+          <div class="availability">
+            <span class="availability-dot"></span>
+            Available for freelance &amp; full-time roles
+          </div>
+        </div>
+        <form class="contact-form reveal-right" id="contactForm">
+          <div class="form-group">
+            <input type="text" id="name" placeholder=" " required />
+            <label for="name">Your Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" placeholder=" " required />
+            <label for="email">Email Address</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="subject" placeholder=" " />
+            <label for="subject">Subject</label>
+          </div>
+          <div class="form-group">
+            <textarea id="message" rows="5" placeholder=" " required></textarea>
+            <label for="message">Your Message</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            <span class="btn-text">Send Message ✉️</span>
+            <span class="btn-loading" hidden>Sending...</span>
+          </button>
+          <div class="form-success" id="formSuccess" hidden>
+            ✅ Message sent! I'll get back to you soon.
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-bracket">&lt;</span>UN<span class="logo-bracket">/&gt;</span>
+      </div>
+      <p class="footer-copy">© 2026 Uzukhanye Nohe. Built with ❤️ and lots of ☕</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link" aria-label="GitHub">🐙</a>
+        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
+        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

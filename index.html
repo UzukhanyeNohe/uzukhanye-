@@ -1,454 +1,589 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Uzukhanye Nohe — Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Curious Incident — Grade 10 IEB Study Pack</title>
+<style>
+:root{
+  --paper:#F7F6F0;
+  --grid:#E5E3D8;
+  --ink:#17150F;
+  --ink-soft:#5A574B;
+  --red:#DF3E22;        /* red car = Good Day */
+  --red-deep:#B22B14;
+  --yellow:#E8B53A;     /* yellow car = Bad Day */
+  --blue:#2456A6;       /* the train to London */
+  --white:#FFFFFF;
+  --mono:ui-monospace,'SF Mono','Cascadia Mono','Courier New',monospace;
+  --sans:-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+  line-height:1.55;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 18px 90px}
+
+/* ---------- header ---------- */
+header{padding:44px 0 10px;text-align:left}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+h1{font-size:clamp(30px,6vw,54px);line-height:1.02;font-weight:800;letter-spacing:-.02em;max-width:14ch}
+h1 .red{color:var(--red)}
+.dogline{display:flex;align-items:center;gap:12px;margin:18px 0 6px}
+.dogline svg{flex:none}
+.sub{color:var(--ink-soft);font-size:15px;max-width:52ch}
+.primenote{font-family:var(--mono);font-size:12px;color:var(--ink-soft);border-left:3px solid var(--red);padding:6px 10px;margin-top:16px;background:var(--white);max-width:56ch}
+
+/* ---------- prime nav ---------- */
+nav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink);margin:26px -18px 0;padding:0 10px}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;appearance:none;border:none;background:none;cursor:pointer;font-family:var(--sans);
+  padding:12px 12px 10px;font-size:13px;font-weight:600;color:var(--ink-soft);
+  border-bottom:3px solid transparent;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.tab .p{font-family:var(--mono);font-size:11px;font-weight:700;background:var(--ink);color:var(--paper);
+  min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;border-radius:3px}
+.tab.active{color:var(--ink);border-bottom-color:var(--red)}
+.tab.active .p{background:var(--red)}
+.tab:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+
+/* ---------- sections ---------- */
+section{display:none;padding-top:34px}
+section.show{display:block;animation:fadein .25s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.chapnum{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--red);letter-spacing:.1em}
+h2{font-size:clamp(24px,4.5vw,34px);font-weight:800;letter-spacing:-.015em;margin:4px 0 8px}
+.lede{color:var(--ink-soft);font-size:15px;max-width:60ch;margin-bottom:24px}
+h3{font-size:18px;font-weight:800;margin:28px 0 10px}
+
+/* ---------- timeline ---------- */
+.chain{border-left:3px solid var(--ink);margin-left:10px;padding-left:0}
+.event{position:relative;margin:0 0 10px 22px}
+.event::before{content:"";position:absolute;left:-31px;top:16px;width:13px;height:13px;background:var(--paper);border:3px solid var(--ink);border-radius:50%}
+.event.open::before{background:var(--red);border-color:var(--red)}
+.event button.evhead{width:100%;text-align:left;background:var(--white);border:2px solid var(--ink);cursor:pointer;
+  padding:12px 14px;font-family:var(--sans);font-size:15px;font-weight:700;color:var(--ink);
+  display:flex;justify-content:space-between;gap:10px;align-items:center}
+.event button.evhead:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.evhead .idx{font-family:var(--mono);font-size:11px;color:var(--ink-soft);font-weight:700}
+.evbody{display:none;border:2px solid var(--ink);border-top:none;background:var(--paper);padding:12px 14px;font-size:14px}
+.event.open .evbody{display:block}
+.evbody .why{margin-top:8px;padding:8px 10px;background:var(--white);border-left:3px solid var(--red);font-size:13.5px}
+.evbody .why b{color:var(--red-deep)}
+
+/* ---------- character flip cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.flip{perspective:1000px;min-height:270px}
+.flip-inner{position:relative;width:100%;height:100%;min-height:270px;transition:transform .5s;transform-style:preserve-3d;cursor:pointer}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--ink);padding:16px;display:flex;flex-direction:column}
+.face.front{background:var(--white)}
+.face.back{background:var(--ink);color:var(--paper);transform:rotateY(180deg);font-size:13.5px;overflow:auto}
+.face .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.face.front h4{font-size:20px;font-weight:800;margin-bottom:8px}
+.face.front p{font-size:13.5px;color:var(--ink-soft)}
+.face .tap{margin-top:auto;font-family:var(--mono);font-size:11px;color:var(--ink-soft)}
+.face.back .tap{color:#B9B6A8}
+.face.back b{color:var(--yellow)}
+.face.back ul{margin:6px 0 10px 16px}
+.face.back li{margin-bottom:4px}
+
+/* ---------- themes ---------- */
+.theme{border:2px solid var(--ink);background:var(--white);margin-bottom:12px}
+.theme > button{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:14px 16px;
+  font-size:16px;font-weight:800;font-family:var(--sans);display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--ink)}
+.theme > button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.theme .arrow{font-family:var(--mono);transition:transform .2s}
+.theme.open .arrow{transform:rotate(90deg);color:var(--red)}
+.theme .tbody{display:none;padding:0 16px 16px;font-size:14px}
+.theme.open .tbody{display:block}
+.tbody .use{margin-top:10px;background:var(--paper);border:2px dashed var(--red);padding:10px 12px;font-size:13.5px}
+.tbody .use b{color:var(--red-deep)}
+.tbody ul{margin:8px 0 8px 18px}
+.tbody li{margin-bottom:5px}
+
+/* ---------- style / decoder tables ---------- */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.note{border:2px solid var(--ink);background:var(--white);padding:14px 16px;font-size:14px}
+.note h4{font-size:15px;font-weight:800;margin-bottom:6px}
+.note h4 .mk{font-family:var(--mono);font-size:11px;color:var(--red);font-weight:700}
+.note p{color:var(--ink);font-size:13.5px}
+.callout{border:3px solid var(--red);background:var(--white);padding:14px 16px;margin:20px 0;font-size:14px}
+.callout b{color:var(--red-deep)}
+
+/* ---------- quiz ---------- */
+.qcard{border:2px solid var(--ink);background:var(--white);padding:16px;margin-bottom:14px}
+.qcard .qn{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:6px}
+.qcard .qt{font-weight:700;font-size:15px;margin-bottom:10px}
+.opts{display:grid;gap:8px}
+.opt{appearance:none;border:2px solid var(--ink);background:var(--paper);cursor:pointer;text-align:left;
+  padding:10px 12px;font-family:var(--sans);font-size:14px;color:var(--ink)}
+.opt:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.opt.correct{background:var(--red);border-color:var(--red);color:#fff;font-weight:700}
+.opt.wrong{background:var(--yellow);border-color:var(--yellow);text-decoration:line-through}
+.opt:disabled{cursor:default}
+.fb{margin-top:8px;font-size:13px;font-family:var(--mono);display:none}
+.fb.show{display:block}
+.fb.good{color:var(--red-deep)}
+.fb.bad{color:#8A6A15}
+
+/* good day meter */
+.meter{position:sticky;bottom:0;margin:0 -18px;background:var(--ink);color:var(--paper);padding:10px 18px;
+  display:flex;align-items:center;gap:12px;font-family:var(--mono);font-size:13px;z-index:40}
+.meter .carsrow{display:flex;gap:4px;flex-wrap:wrap}
+.car{width:22px;height:14px;position:relative;background:#3A382E;border-radius:3px 6px 2px 2px}
+.car::after{content:"";position:absolute;left:4px;top:-4px;width:11px;height:6px;background:inherit;border-radius:3px 3px 0 0}
+.car.lit{background:var(--red)}
+.meter .verdict{margin-left:auto;font-weight:700}
+.meter .verdict.good{color:var(--red)}
+.meter .verdict.bad{color:var(--yellow)}
+
+/* ---------- mock test ---------- */
+.extract{border:2px solid var(--blue);background:var(--white);padding:14px 16px;margin:14px 0;font-size:14px}
+.extract .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;font-weight:700}
+.mq{margin:14px 0;border-left:3px solid var(--ink);padding-left:14px}
+.mq .qline{font-weight:700;font-size:15px}
+.mq .marks{font-family:var(--mono);font-size:12px;color:var(--red-deep);font-weight:700}
+.mq textarea{width:100%;margin-top:8px;border:2px solid var(--ink);background:var(--white);padding:10px;
+  font-family:var(--sans);font-size:14px;min-height:64px;resize:vertical;color:var(--ink)}
+.mq textarea:focus-visible{outline:2px solid var(--blue)}
+.reveal{margin-top:8px;appearance:none;border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+  cursor:pointer;padding:8px 12px;font-family:var(--mono);font-size:12px;font-weight:700}
+.reveal:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.memo{display:none;margin-top:8px;background:var(--paper);border:2px dashed var(--ink);padding:10px 12px;font-size:13.5px}
+.memo.show{display:block}
+.memo b{color:var(--red-deep)}
+.memo ul{margin:6px 0 0 18px}
+.memo li{margin-bottom:4px}
+
+footer{margin-top:50px;font-family:var(--mono);font-size:12px;color:var(--ink-soft);text-align:center}
+</style>
 </head>
 <body>
-  <!-- Cursor -->
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-follower" id="cursorFollower"></div>
-
-  <!-- Canvas for particles -->
-  <canvas id="particles"></canvas>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-logo">
-      <span class="logo-bracket">&lt;</span>UN<span class="logo-bracket">/&gt;</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#hero" class="nav-link">Home</a></li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#skills" class="nav-link">Skills</a></li>
-      <li><a href="#projects" class="nav-link">Projects</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="theme-icon">☀️</span>
-    </button>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <ul>
-      <li><a href="#hero" class="mobile-link">Home</a></li>
-      <li><a href="#about" class="mobile-link">About</a></li>
-      <li><a href="#skills" class="mobile-link">Skills</a></li>
-      <li><a href="#projects" class="mobile-link">Projects</a></li>
-      <li><a href="#contact" class="mobile-link">Contact</a></li>
-    </ul>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Grade 10 · English HL · IEB Cycle Test Prep</div>
+  <h1>The Curious Incident of the <span class="red">Dog</span> in the Night-Time</h1>
+  <div class="dogline">
+    <svg width="46" height="34" viewBox="0 0 46 34" aria-hidden="true">
+      <g fill="#17150F">
+        <rect x="8" y="14" width="24" height="10" rx="3"/>
+        <rect x="28" y="8" width="10" height="10" rx="3"/>
+        <rect x="36" y="6" width="3" height="5" rx="1"/>
+        <rect x="10" y="23" width="3" height="8"/>
+        <rect x="17" y="23" width="3" height="8"/>
+        <rect x="24" y="23" width="3" height="8"/>
+        <rect x="29" y="23" width="3" height="8"/>
+        <path d="M8 16 L2 11 L4 18 Z"/>
+      </g>
+      <circle cx="33" cy="12" r="1.6" fill="#DF3E22"/>
+    </svg>
+    <p class="sub">An interactive study pack by Mark Haddon's biggest fans. Work through the seven sections, then finish with the mock test. Answer first, peek at the memo after.</p>
   </div>
+  <p class="primenote">Why are the sections numbered 2, 3, 5, 7, 11, 13, 17? Because Christopher numbers his chapters in prime numbers — and if that detail comes up in your test, you now have a ready-made answer about structure.</p>
+</header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="hero">
-    <div class="hero-content">
-      <div class="hero-greeting reveal">Hello, World! 👋</div>
-      <h1 class="hero-title reveal">
-        I'm <span class="gradient-text" id="typedName">Uzukhanye Nohe</span>
-      </h1>
-      <div class="hero-role reveal">
-        <span class="role-prefix">I'm a </span>
-        <span class="typed-role" id="typedRole"></span>
-        <span class="cursor-blink">|</span>
-      </div>
-      <p class="hero-desc reveal">
-        I craft beautiful, performant digital experiences that live at the intersection of design and technology.
-      </p>
-      <div class="hero-cta reveal">
-        <a href="#projects" class="btn btn-primary">View My Work</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
-      </div>
-      <div class="hero-stats reveal">
-        <div class="stat">
-          <span class="stat-num" data-target="3">0</span>+
-          <span class="stat-label">Years Exp.</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="20">0</span>+
-          <span class="stat-label">Projects</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num" data-target="15">0</span>+
-          <span class="stat-label">Clients</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-visual reveal">
-      <div class="avatar-wrapper">
-        <div class="avatar-ring ring-1"></div>
-        <div class="avatar-ring ring-2"></div>
-        <div class="avatar-ring ring-3"></div>
-        <div class="avatar-circle">
-          <div class="avatar-initials">UN</div>
-        </div>
-        <div class="floating-badge badge-1">
-          <span>💻</span> Full-Stack
-        </div>
-        <div class="floating-badge badge-2">
-          <span>🎨</span> UI/UX
-        </div>
-        <div class="floating-badge badge-3">
-          <span>⚡</span> Performance
-        </div>
-      </div>
-    </div>
-    <div class="scroll-indicator">
-      <div class="scroll-dot"></div>
-    </div>
-  </section>
+<nav aria-label="Study pack sections">
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-t="story" role="tab"><span class="p">2</span>The Story</button>
+    <button class="tab" data-t="chars" role="tab"><span class="p">3</span>Characters</button>
+    <button class="tab" data-t="themes" role="tab"><span class="p">5</span>Themes</button>
+    <button class="tab" data-t="style" role="tab"><span class="p">7</span>How It's Written</button>
+    <button class="tab" data-t="decoder" role="tab"><span class="p">11</span>Question Decoder</button>
+    <button class="tab" data-t="quiz" role="tab"><span class="p">13</span>Quick Quiz</button>
+    <button class="tab" data-t="mock" role="tab"><span class="p">17</span>Mock Test</button>
+    <button class="tab" data-t="real" role="tab"><span class="p">19</span>The Real Test</button>
+  </div>
+</nav>
 
-  <!-- About Section -->
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">01. About Me</span>
-        <h2 class="section-title">Who I Am</h2>
-      </div>
-      <div class="about-grid">
-        <div class="about-text reveal-left">
-          <p>
-            I'm a passionate <strong>full-stack developer</strong> with a keen eye for design and a love for building elegant solutions. I thrive on turning complex problems into simple, beautiful, and intuitive digital experiences.
-          </p>
-          <p>
-            When I'm not coding, you'll find me exploring new technologies, contributing to open-source projects, or sketching UI concepts. I believe that great software is not just functional — it's a pleasure to use.
-          </p>
-          <div class="about-highlights">
-            <div class="highlight">
-              <span class="highlight-icon">🎓</span>
-              <div>
-                <strong>Education</strong>
-                <p>Computer Science Graduate</p>
-              </div>
-            </div>
-            <div class="highlight">
-              <span class="highlight-icon">🌍</span>
-              <div>
-                <strong>Location</strong>
-                <p>Available Worldwide (Remote)</p>
-              </div>
-            </div>
-            <div class="highlight">
-              <span class="highlight-icon">🚀</span>
-              <div>
-                <strong>Focus</strong>
-                <p>Web & Mobile Applications</p>
-              </div>
-            </div>
-          </div>
-          <a href="#" class="btn btn-primary" id="downloadCV">Download CV ↓</a>
-        </div>
-        <div class="about-card-stack reveal-right">
-          <div class="stack-card card-back"></div>
-          <div class="stack-card card-mid"></div>
-          <div class="stack-card card-front">
-            <div class="code-block">
-              <div class="code-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="code-filename">about.js</span>
-              </div>
-              <pre class="code-content"><span class="code-kw">const</span> <span class="code-var">developer</span> = {
-  <span class="code-key">name</span>: <span class="code-str">"Uzukhanye Nohe"</span>,
-  <span class="code-key">role</span>: <span class="code-str">"Full-Stack Dev"</span>,
-  <span class="code-key">passion</span>: <span class="code-str">"Building cool stuff"</span>,
-  <span class="code-key">skills</span>: [
-    <span class="code-str">"React"</span>, <span class="code-str">"Node.js"</span>,
-    <span class="code-str">"Python"</span>, <span class="code-str">"TypeScript"</span>
-  ],
-  <span class="code-key">available</span>: <span class="code-bool">true</span>,
-  <span class="code-key">coffee</span>: <span class="code-str">"always ☕"</span>
-};</pre>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ============ 2. STORY ============ -->
+<section id="sec-story" class="show">
+  <div class="chapnum">CHAPTER 2</div>
+  <h2>The story as a chain reaction</h2>
+  <p class="lede">Examiners love asking you to "place an extract in context." That means knowing not just <em>what</em> happens, but <em>why each event causes the next one</em>. Tap each event to see what it triggers.</p>
+  <div class="chain" id="chain"></div>
+  <div class="callout"><b>Test yourself:</b> close this page and retell the whole chain out loud, from Wellington's death to the puppy at the end. If you can explain every "because", you can handle any context question.</div>
+</section>
 
-  <!-- Skills Section -->
-  <section class="section section-alt" id="skills">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">02. Skills</span>
-        <h2 class="section-title">What I Work With</h2>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title">Frontend</h3>
-          <div class="skill-bars">
-            <div class="skill-bar" data-skill="React / Next.js" data-level="90"></div>
-            <div class="skill-bar" data-skill="TypeScript" data-level="85"></div>
-            <div class="skill-bar" data-skill="CSS / Tailwind" data-level="92"></div>
-            <div class="skill-bar" data-skill="Vue.js" data-level="75"></div>
-          </div>
-        </div>
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title">Backend</h3>
-          <div class="skill-bars">
-            <div class="skill-bar" data-skill="Node.js / Express" data-level="88"></div>
-            <div class="skill-bar" data-skill="Python / Django" data-level="80"></div>
-            <div class="skill-bar" data-skill="PostgreSQL" data-level="82"></div>
-            <div class="skill-bar" data-skill="GraphQL" data-level="72"></div>
-          </div>
-        </div>
-        <div class="skill-category reveal">
-          <h3 class="skill-category-title">Tools & Platforms</h3>
-          <div class="skill-bars">
-            <div class="skill-bar" data-skill="Git / GitHub" data-level="95"></div>
-            <div class="skill-bar" data-skill="Docker" data-level="78"></div>
-            <div class="skill-bar" data-skill="AWS / Vercel" data-level="75"></div>
-            <div class="skill-bar" data-skill="Figma" data-level="80"></div>
-          </div>
-        </div>
-      </div>
-      <div class="tech-orbit reveal">
-        <div class="orbit-title">Tech Stack</div>
-        <div class="orbit-ring">
-          <div class="orbit-item" style="--i:0">⚛️</div>
-          <div class="orbit-item" style="--i:1">🟨</div>
-          <div class="orbit-item" style="--i:2">🐍</div>
-          <div class="orbit-item" style="--i:3">🐳</div>
-          <div class="orbit-item" style="--i:4">☁️</div>
-          <div class="orbit-item" style="--i:5">🛠️</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- ============ 3. CHARACTERS ============ -->
+<section id="sec-chars">
+  <div class="chapnum">CHAPTER 3</div>
+  <h2>Characters — tap a card to flip it</h2>
+  <p class="lede">The front tells you who they are. The back tells you what to actually <em>write</em> in a test: key actions, what they reveal, and how they connect to Christopher.</p>
+  <div class="cards" id="cards"></div>
+  <div class="callout"><b>Golden rule for character questions:</b> never just name a trait. Trait + evidence from the extract + effect. "Christopher is logical" earns little. "Christopher is logical <b>because</b> he treats Wellington's death as a problem to investigate step by step, rather than reacting only with emotion" earns the marks.</div>
+</section>
+<!-- ============ 5. THEMES ============ -->
+<section id="sec-themes">
+  <div class="chapnum">CHAPTER 5</div>
+  <h2>Themes — where the top marks live</h2>
+  <p class="lede">IEB contextual questions usually end with a 3–4 mark theme or "critically discuss" question. Each theme below ends with a ready-to-adapt sentence you can use in an answer.</p>
+  <div id="themes"></div>
+</section>
 
-  <!-- Projects Section -->
-  <section class="section" id="projects">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">03. Projects</span>
-        <h2 class="section-title">What I've Built</h2>
-      </div>
-      <div class="filter-tabs reveal">
-        <button class="filter-tab active" data-filter="all">All</button>
-        <button class="filter-tab" data-filter="web">Web</button>
-        <button class="filter-tab" data-filter="mobile">Mobile</button>
-        <button class="filter-tab" data-filter="ai">AI / ML</button>
-      </div>
-      <div class="projects-grid">
-        <div class="project-card reveal" data-category="web">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:220">
-              <span>🛒</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">React</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">MongoDB</span>
-            </div>
-            <h3 class="project-title">E-Commerce Platform</h3>
-            <p class="project-desc">Full-featured online store with real-time inventory, payments via Stripe, and an admin dashboard.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">Live Demo ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
+<!-- ============ 7. STYLE ============ -->
+<section id="sec-style">
+  <div class="chapnum">CHAPTER 7</div>
+  <h2>How the book is written</h2>
+  <p class="lede">Style and structure questions are where students lose easy marks. IEB loves asking about the <em>effect</em> of the author's choices — not just spotting them.</p>
+  <div class="grid2">
+    <div class="note"><h4>First-person narrator <span class="mk">very likely</span></h4>
+      <p>We experience everything through Christopher's mind. He reports exactly what he sees and never interprets other people's feelings for us — so the reader often understands things (like Ed's guilt, or Judy's letters) <b>before Christopher does</b>. That gap between what he tells us and what we work out is called dramatic irony, and it is the engine of the whole novel.</p></div>
+    <div class="note"><h4>Prime-number chapters <span class="mk">easy 2 marks</span></h4>
+      <p>Chapters run 2, 3, 5, 7, 11, 13… Christopher finds prime numbers logical and comforting, so the structure itself mirrors his mind: the book is organised the way he organises the world.</p></div>
+    <div class="note"><h4>Diagrams, maps &amp; maths <span class="mk">effect question</span></h4>
+      <p>The drawings, timetables, maps and maths problems are not decoration. They show how Christopher processes the world — visually, logically, in systems. When the plot gets emotionally overwhelming, he often retreats into maths; the maths sections are a coping mechanism on the page.</p></div>
+    <div class="note"><h4>Detective-story frame <span class="mk">discuss</span></h4>
+      <p>Christopher sets out to write a murder mystery about a dog. The twist: the real mystery turns out to be his own family. The detective genre gets flipped — the "detective" is the person the biggest secret was kept from.</p></div>
+    <div class="note"><h4>Plain, literal language <span class="mk">comment on</span></h4>
+      <p>Christopher avoids metaphors because he finds them illogical (he says they're basically lies), though he accepts similes because they compare truthfully. His flat, precise sentences make the emotional moments hit harder — the language stays calm while the events are devastating.</p></div>
+    <div class="note"><h4>Red cars &amp; yellow cars <span class="mk">symbol</span></h4>
+      <p>Seeing 4 red cars in a row makes it a Good Day; 4 yellow cars makes it a Black Day. It looks random, but Christopher points out that other people's moods are shaped by arbitrary things too (like the weather). It's his way of imposing order on an unpredictable world — a mini version of the novel's biggest theme.</p></div>
+  </div>
+  <div class="callout"><b>Formula for any "comment on the effect" question:</b> name the technique → say what it shows about Christopher → say what it makes the reader feel or realise. Three steps, three marks.</div>
+</section>
 
-        <div class="project-card reveal" data-category="ai">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:280">
-              <span>🤖</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Python</span>
-              <span class="tag">OpenAI</span>
-              <span class="tag">FastAPI</span>
-            </div>
-            <h3 class="project-title">AI Chat Assistant</h3>
-            <p class="project-desc">Context-aware chatbot with memory, file uploads, and multi-model routing for optimal responses.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">Live Demo ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
+<!-- ============ 11. DECODER ============ -->
+<section id="sec-decoder">
+  <div class="chapnum">CHAPTER 11</div>
+  <h2>Question decoder</h2>
+  <p class="lede">The command word tells you how much work the question wants. Match your answer length to the marks: roughly one made point per mark.</p>
+  <div class="grid2">
+    <div class="note"><h4>Identify / State / Name <span class="mk">1 mark</span></h4><p>Short factual answer. No discussion needed. Don't waste time writing paragraphs here.</p></div>
+    <div class="note"><h4>Explain <span class="mk">2 marks</span></h4><p>Give the reason AND develop it. "Because Ed lied" is half an answer; add what the lie was and why it matters.</p></div>
+    <div class="note"><h4>Discuss <span class="mk">3 marks</span></h4><p>A developed answer with evidence from the text. Usually needs 2–3 linked points.</p></div>
+    <div class="note"><h4>Comment on <span class="mk">2–3 marks</span></h4><p>Explain the significance or <em>effect</em> — of a word, an image, a technique. Never just describe; say what it achieves.</p></div>
+    <div class="note"><h4>Compare <span class="mk">3–4 marks</span></h4><p>Similarities AND/OR differences, dealt with side by side — not two separate mini-essays.</p></div>
+    <div class="note"><h4>Critically discuss / Evaluate <span class="mk">4 marks</span></h4><p>Form a judgement and defend it with evidence. IEB rewards answers that see both sides before concluding.</p></div>
+    <div class="note"><h4>Do you agree? Justify. <span class="mk">3–4 marks</span></h4><p>You may agree, disagree, or partly agree — the marks are for the <em>proof</em>, not the position. "Partly agree" answers often score best because they show nuance.</p></div>
+    <div class="note"><h4>In your own words <span class="mk">trap!</span></h4><p>If you copy the extract's wording, you get zero — even if the content is right. Rephrase completely.</p></div>
+  </div>
+  <div class="callout"><b>IEB habit to build now:</b> quote briefly and weave it into your sentence, don't dump long chunks. Short, well-chosen references beat long copied ones every time. And always answer in full sentences unless the question says otherwise.</div>
+</section>
+<!-- ============ 13. QUIZ ============ -->
+<section id="sec-quiz">
+  <div class="chapnum">CHAPTER 13</div>
+  <h2>Quick quiz — is it a Good Day?</h2>
+  <p class="lede">Ten questions. Every correct answer lights up a red car. Get 8 or more red cars and Christopher would officially declare this a Good Day.</p>
+  <div id="quiz"></div>
+</section>
 
-        <div class="project-card reveal" data-category="mobile">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:160">
-              <span>💪</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">React Native</span>
-              <span class="tag">Expo</span>
-              <span class="tag">Firebase</span>
-            </div>
-            <h3 class="project-title">Fitness Tracker App</h3>
-            <p class="project-desc">Cross-platform mobile app for workout logging, progress charts, and personalized routines.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">App Store ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
+<!-- ============ 17. MOCK ============ -->
+<section id="sec-mock">
+  <div class="chapnum">CHAPTER 17</div>
+  <h2>Mock cycle test</h2>
+  <p class="lede">In the real test you'll get a printed extract. Here, each scene is described — picture the page in front of you. Write your answer in the box <em>before</em> revealing the memo. Total: 35 marks. Give yourself 45 minutes.</p>
 
-        <div class="project-card reveal" data-category="web">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:30">
-              <span>📊</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Next.js</span>
-              <span class="tag">D3.js</span>
-              <span class="tag">PostgreSQL</span>
-            </div>
-            <h3 class="project-title">Analytics Dashboard</h3>
-            <p class="project-desc">Real-time data visualization platform with customizable charts, reports, and team collaboration.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">Live Demo ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
+  <h3>Section A — The discovery (10 marks)</h3>
+  <div class="extract"><div class="lab">Scene for questions 1.1–1.4</div>
+    Imagine the extract is the opening scene: it is after midnight, and Christopher finds Wellington lying on the grass in Mrs Shears' garden with a garden fork through him. He touches the dog, holds him, and decides to find out who killed him. Mrs Shears comes out screaming; the police arrive; when a policeman grabs Christopher's arm, he hits him.
+  </div>
+  <div class="mq"><div class="qline">1.1 Place this extract in context: what is the situation at this point in the novel? <span class="marks">(2)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> This is the very opening of the novel (✓). Christopher has left his house at night and discovered his neighbour's dog dead in her garden — the event that launches his murder investigation and, eventually, the uncovering of his own family's secrets (✓).</div></div>
+  <div class="mq"><div class="qline">1.2 Explain why Christopher hits the policeman. <span class="marks">(2)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> Christopher cannot bear being touched, especially by strangers (✓). Being grabbed overloads and panics him, so hitting out is a defensive, instinctive reaction — not aggression or disrespect (✓).</div></div>
+  <div class="mq"><div class="qline">1.3 Discuss what this extract reveals about Christopher's character. <span class="marks">(3)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo — any three, developed:</b><ul>
+      <li>He is <b>logical and methodical</b>: he treats the death as a problem to be investigated, not just an upsetting event (✓).</li>
+      <li>He is <b>compassionate in his own way</b>: he holds the dog and cares about what happened to it (✓).</li>
+      <li>He is <b>literal and honest</b>: he answers the police exactly and truthfully (✓).</li>
+      <li>He struggles with <b>sensory overload and touch</b>, which explains his reaction to the policeman (✓).</li></ul></div></div>
+  <div class="mq"><div class="qline">1.4 Comment on the effectiveness of opening the novel with this scene. <span class="marks">(3)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> It hooks the reader with a mystery immediately (✓); it introduces Christopher's unusual, precise way of seeing the world before we're even told anything about him (✓); and it plants the question — who killed Wellington? — whose answer will detonate the family plot later (✓).</div></div>
 
-        <div class="project-card reveal" data-category="ai">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:340">
-              <span>🎨</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Python</span>
-              <span class="tag">Stable Diffusion</span>
-              <span class="tag">Flask</span>
-            </div>
-            <h3 class="project-title">AI Image Generator</h3>
-            <p class="project-desc">Web interface for generating, editing, and upscaling images using diffusion models.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">Live Demo ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
+  <h3>Section B — The letters (12 marks)</h3>
+  <div class="extract"><div class="lab">Scene for questions 2.1–2.4</div>
+    Imagine the extract is the scene where Christopher, searching for his confiscated book, finds a hidden collection of letters in his father's cupboard — letters addressed to him, in his mother's handwriting, dated after the time he was told she died. He reads them, understands that his mother is alive in London, and becomes physically ill from the shock. Ed finds him, and later confesses: he lied about Judy's death, and he killed Wellington.
+  </div>
+  <div class="mq"><div class="qline">2.1 State TWO things Christopher learns from finding the letters. <span class="marks">(2)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> His mother is alive and living in London with Mr Shears (✓); his father has been lying to him about her death for two years (✓).</div></div>
+  <div class="mq"><div class="qline">2.2 Explain why Ed's confession about Wellington terrifies Christopher more than it reassures him. <span class="marks">(3)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> Christopher reasons with strict logic: his father killed Wellington (✓); therefore his father is capable of killing (✓); therefore, since his father also lied to him, Christopher can no longer trust him and concludes he himself might be in danger — which is why he decides he cannot stay in the house (✓).</div></div>
+  <div class="mq"><div class="qline">2.3 "Ed lied to protect Christopher." Do you agree? Justify your answer. <span class="marks">(4)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo — a "partly agree" answer scores best:</b><ul>
+      <li>Yes, partly: Ed was overwhelmed, hurt by Judy leaving, and believed the lie would spare Christopher pain he couldn't process (✓✓).</li>
+      <li>But the lie was also self-protective — it hid Ed's own failures and anger — and it violates the thing Christopher values most: truth (✓).</li>
+      <li>Conclusion: the motive was mixed; love and cowardice at the same time, which is exactly why the novel refuses simple "good/bad" labels (✓).</li></ul></div></div>
+  <div class="mq"><div class="qline">2.4 Discuss how this scene develops the theme of truth and lies. <span class="marks">(3)</span></div>
+    <textarea placeholder="Write your answer here first..."></textarea>
+    <button class="reveal">Reveal memo</button>
+    <div class="memo"><b>Memo:</b> Christopher cannot lie and depends on the world being truthful (✓); the letters prove that the person he relied on most built his entire reality on a lie (✓); so the theme moves from an abstract preference into the force that destroys trust and drives the second half of the plot — his journey to London (✓).</div></div>
 
-        <div class="project-card reveal" data-category="web">
-          <div class="project-img">
-            <div class="project-placeholder" style="--hue:100">
-              <span>📝</span>
-            </div>
-          </div>
-          <div class="project-info">
-            <div class="project-tags">
-              <span class="tag">Vue.js</span>
-              <span class="tag">Supabase</span>
-              <span class="tag">TailwindCSS</span>
-            </div>
-            <h3 class="project-title">Collaborative Notes</h3>
-            <p class="project-desc">Real-time collaborative note-taking with rich text, tags, and instant sync across devices.</p>
-            <div class="project-links">
-              <a href="#" class="project-link">Live Demo ↗</a>
-              <a href="#" class="project-link project-link-ghost">GitHub ↗</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <h3>Section C — Mini essay (13 marks)</h3>
+  <div class="mq"><div class="qline">3. "By the end of the novel, Christopher has proven that he can do anything." Critically discuss this statement with reference to his journey to London and the ending of the novel. <span class="marks">(13)</span></div>
+    <textarea style="min-height:140px" placeholder="Plan first: intro (position) → 3 body points with evidence → conclusion..."></textarea>
+    <button class="reveal">Reveal marking guide</button>
+    <div class="memo"><b>Marking guide — what a top answer includes:</b><ul>
+      <li><b>A clear position</b>, ideally nuanced: he hasn't proven he can do <em>anything</em>, but he has shattered his own (and others') beliefs about his limits.</li>
+      <li><b>The journey as evidence:</b> London is everything Christopher fears — noise, crowds, strangers, chaos — yet he navigates the station, the train and the Underground alone, using logic and courage to survive an environment designed to overwhelm him.</li>
+      <li><b>The A-level Maths result</b> as proof of ability in the world's terms, and the puppy, Sandy, as a sign of Ed slowly rebuilding trust.</li>
+      <li><b>Balance:</b> he still needs routine and support; the trust with his father is repaired step by tiny step, not restored. Growth, not transformation.</li>
+      <li><b>The final lines' significance:</b> Christopher lists what he has done — solved the mystery, travelled to London alone, written a book — and concludes it means he can do anything. Whether the reader fully agrees or not, his new self-belief is real, and that change is the point of the novel.</li>
+      <li><b>Structure marks:</b> intro with a stance, PEE paragraphs (Point–Evidence–Explanation), conclusion that answers the question. No storytelling without argument.</li></ul></div></div>
 
-  <!-- Contact Section -->
-  <section class="section section-alt" id="contact">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">04. Contact</span>
-        <h2 class="section-title">Let's Work Together</h2>
-      </div>
-      <div class="contact-grid">
-        <div class="contact-info reveal-left">
-          <p class="contact-desc">
-            Have a project in mind? Want to collaborate? Or just want to say hi? My inbox is always open.
-          </p>
-          <div class="contact-items">
-            <a href="mailto:uzukhanye@example.com" class="contact-item">
-              <span class="contact-icon">📧</span>
-              <span>uzukhanye@example.com</span>
-            </a>
-            <a href="#" class="contact-item">
-              <span class="contact-icon">💼</span>
-              <span>linkedin.com/in/uzukhanye</span>
-            </a>
-            <a href="#" class="contact-item">
-              <span class="contact-icon">🐙</span>
-              <span>github.com/uzukhanyenohe</span>
-            </a>
-            <a href="#" class="contact-item">
-              <span class="contact-icon">🐦</span>
-              <span>@uzukhanye</span>
-            </a>
-          </div>
-          <div class="availability">
-            <span class="availability-dot"></span>
-            Available for freelance &amp; full-time roles
-          </div>
-        </div>
-        <form class="contact-form reveal-right" id="contactForm">
-          <div class="form-group">
-            <input type="text" id="name" placeholder=" " required />
-            <label for="name">Your Name</label>
-          </div>
-          <div class="form-group">
-            <input type="email" id="email" placeholder=" " required />
-            <label for="email">Email Address</label>
-          </div>
-          <div class="form-group">
-            <input type="text" id="subject" placeholder=" " />
-            <label for="subject">Subject</label>
-          </div>
-          <div class="form-group">
-            <textarea id="message" rows="5" placeholder=" " required></textarea>
-            <label for="message">Your Message</label>
-          </div>
-          <button type="submit" class="btn btn-primary btn-full">
-            <span class="btn-text">Send Message ✉️</span>
-            <span class="btn-loading" hidden>Sending...</span>
-          </button>
-          <div class="form-success" id="formSuccess" hidden>
-            ✅ Message sent! I'll get back to you soon.
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
+  <div class="callout"><b>After marking yourself:</b> anywhere you lost marks, don't just read the memo — rewrite your answer properly. That rewrite is where the actual learning happens.</div>
+</section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-logo">
-        <span class="logo-bracket">&lt;</span>UN<span class="logo-bracket">/&gt;</span>
-      </div>
-      <p class="footer-copy">© 2026 Uzukhanye Nohe. Built with ❤️ and lots of ☕</p>
-      <div class="footer-socials">
-        <a href="#" class="social-link" aria-label="GitHub">🐙</a>
-        <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-        <a href="#" class="social-link" aria-label="Twitter">🐦</a>
-      </div>
-    </div>
-  </footer>
+<!-- ============ 19. REAL TEST ============ -->
+<section id="sec-real">
+  <div class="chapnum">CHAPTER 19</div>
+  <h2>The Real Test — no memo, no peeking</h2>
+  <p class="lede">30 marks, 45 minutes, closed book. There is no memo in this section. Write every answer, then submit the whole test — it gets marked by an AI examiner (Claude) against IEB-style memo standards, with marks per question and feedback on exactly where you gained and lost.</p>
+  <div class="callout"><b>Rules:</b> answer everything before submitting · full sentences · no notes, no other tabs · your first attempt is your mark. Rewrite weak answers <em>after</em> the feedback, not during.</div>
+  <div id="realq"></div>
+  <div style="margin:22px 0">
+    <button class="reveal" id="submitTest" style="font-size:14px;padding:12px 18px;background:var(--red);border-color:var(--red)">Submit test for marking</button>
+    <div id="markStatus" style="display:none;margin-top:12px;font-family:var(--mono);font-size:13px;color:var(--ink-soft)"></div>
+  </div>
+  <div id="markResults"></div>
+</section>
 
-  <script src="script.js"></script>
+<footer>Sections numbered in primes, obviously. · Good luck — make it a Good Day.</footer>
+</div>
+
+<div class="meter" id="meter" style="display:none">
+  <span>SCORE <span id="scnum">0</span>/10</span>
+  <div class="carsrow" id="cars"></div>
+  <span class="verdict" id="verdict"></span>
+</div>
+
+<script>
+/* ---------- data ---------- */
+const EVENTS=[
+ ["Wellington is found dead","Christopher discovers Mrs Shears' dog with a garden fork through it, just after midnight.","He decides to investigate the murder and write a book about it — the novel we're reading."],
+ ["Christopher starts detecting","He questions neighbours on the street, logically, house by house.","Ed finds out and, furious, orders him to stop and stay out of other people's business."],
+ ["He carries on anyway","Christopher reasons his way around the ban and keeps digging.","He meets Mrs Alexander, who lets slip something huge."],
+ ["Mrs Alexander's revelation","She tells him his mother had an affair with Mr Shears before she 'died'.","Suddenly the dog mystery is tangled up with his own family's history."],
+ ["Ed confiscates the book","Ed discovers Christopher's murder-investigation book and takes it away.","Searching for the book leads Christopher to something far worse."],
+ ["The hidden letters","In Ed's cupboard, Christopher finds letters from his mother — dated after her supposed death.","He realises his mother is alive in London and his father has lied for two years. He collapses from shock."],
+ ["Ed confesses everything","Ed admits the lie — and admits that he killed Wellington in rage after Mrs Shears rejected him.","Christopher's logic kicks in: Father killed a dog → Father can kill → I am not safe. Trust is destroyed."],
+ ["Christopher runs","Too frightened to stay, he decides to go to the one safe person left: his mother.","He must do the unthinkable — travel alone to London."],
+ ["The journey to London","Stations, crowds, police, the Underground: everything that overwhelms him, survived through logic and courage.","This is the novel's climax of growth — the proof of what he can do."],
+ ["Finding Judy","He arrives at his mother's flat. She is shocked, guilty, and takes him in.","Living with Judy and Mr Shears is hard; Judy eventually brings him back to Swindon."],
+ ["The A-level Maths exam","Back home, exhausted, Christopher still sits his exam — and gets an A.","External proof of his ability, on the world's own terms."],
+ ["Rebuilding, slowly","Ed works to regain trust in tiny steps and gives Christopher a puppy, Sandy.","The ending: Christopher lists his achievements and decides he can do anything. Growth — not a fairy-tale fix."]
+];
+const CHARS=[
+ ["Christopher Boone","Narrator & protagonist","15-year-old maths genius in Swindon who sees the world in patterns, logic and absolute truth.",
+  "<b>Key actions:</b><ul><li>Investigates Wellington's death against orders</li><li>Finds the letters; uncovers the family lie</li><li>Travels alone to London; aces A-level Maths</li></ul><b>What to write:</b> logical, honest, courageous, literal; struggles with touch, crowds and reading emotions; his journey proves capability, not 'cure'."],
+ ["Ed Boone","Christopher's father","Single parent, boiler engineer. Patient and devoted for years — but hiding two enormous secrets.",
+  "<b>Key actions:</b><ul><li>Lied that Judy was dead; hid her letters</li><li>Killed Wellington in rage</li><li>Rebuilds trust slowly; gives Christopher Sandy</li></ul><b>What to write:</b> neither villain nor hero — genuine love undermined by temper, exhaustion and dishonesty. The novel's best example of a flawed, complex character."],
+ ["Judy Boone","Christopher's mother","Left for Mr Shears in London; wrote to Christopher constantly, never knowing the letters were hidden.",
+  "<b>Key actions:</b><ul><li>Left the family, unable to cope</li><li>Wrote the letters — proof she never stopped caring</li><li>Takes Christopher in; returns to Swindon for him</li></ul><b>What to write:</b> honest about her failures where Ed lied about his; loving but overwhelmed. Impatient and quick-tempered, yet she sacrifices her London life for her son."],
+ ["Siobhan","Teacher & mentor","Christopher's teacher at school — the person who translates the confusing human world into rules he can use.",
+  "<b>Key actions:</b><ul><li>Teaches him to decode faces and social rules</li><li>Encourages his book — shaping the novel itself</li></ul><b>What to write:</b> his trusted guide and 'voice in his head'; represents patient, structured support. Ask yourself: why can Siobhan reach him when his parents often can't?"],
+ ["Mrs Alexander","The kind neighbour","Elderly neighbour who chats to Christopher during his investigation.",
+  "<b>Key actions:</b><ul><li>Reveals Judy's affair with Mr Shears</li><li>Offers kindness with no agenda</li></ul><b>What to write:</b> the accidental turning point — her honesty starts unravelling the family secret. Also shows Christopher managing a social relationship on his own terms."],
+ ["Mrs Shears","Wellington's owner","Neighbour, once close to Ed after Judy left; owner of Wellington.",
+  "<b>Key actions:</b><ul><li>Grew close to Ed, then rejected him</li><li>Her rejection is what Ed's rage answers — via Wellington</li></ul><b>What to write:</b> the hinge of the murder plot: the dog dies because of the adults' tangled relationships, not anything to do with Christopher."],
+ ["Mr Shears","Judy's partner","Mrs Shears' ex-husband; the man Judy left with, living with her in London.",
+  "<b>Key actions:</b><ul><li>Had the affair with Judy</li><li>Resents Christopher's arrival in London</li></ul><b>What to write:</b> contrast him with Ed — Ed fails Christopher yet fights for him; Mr Shears simply doesn't want him. Deepens the 'flawed parents vs. genuinely uncaring adult' contrast."],
+ ["Wellington · Toby · Sandy","The animals","A poodle, a pet rat, and a golden retriever puppy — and each one carries meaning.",
+  "<b>What to write:</b><ul><li><b>Wellington:</b> the victim whose death exposes every human secret</li><li><b>Toby:</b> Christopher's constant companion — he risks the train tracks for him, showing loyalty and courage</li><li><b>Sandy:</b> Ed's peace offering — trust rebuilt in a form Christopher can accept</li></ul>Animals are safe for Christopher: honest, predictable, incapable of lying."]
+];
+const THEMES=[
+ ["Truth and lies","<p>The novel's engine. Christopher cannot lie and needs the world to be truthful — so Ed's lie about Judy isn't just hurtful, it collapses his entire reality. Notice the layers: Ed's massive lie, Judy's honest letters, and Christopher's own discovery that he can withhold truth ('white lies' and half-truths) without technically lying.</p><div class='use'><b>Use it like this:</b> \"Because truth is the foundation Christopher builds his world on, Ed's lie does more than hurt him — it destroys his ability to feel safe in his own home, which is why he risks the journey to London.\"</div>"],
+ ["Trust","<p>Trust is broken in one blow and rebuilt in tiny steps. Ed destroys years of it in a single confession; regaining it takes scheduled time together, small promises kept, and finally Sandy. The novel argues trust is behavioural, not verbal — Ed can't <em>say</em> his way back, he has to <em>act</em> his way back.</p><div class='use'><b>Use it like this:</b> \"The puppy matters because it is trust in a form Christopher can verify: an act, not a promise.\"</div>"],
+ ["Family — flawed, not evil","<p>Neither parent is simply good or bad. Ed lies and kills Wellington, yet stays and fights for his son. Judy abandons the family, yet her letters and her return show real love. IEB questions on this theme reward answers that resist easy labels.</p><div class='use'><b>Use it like this:</b> \"The statement is too simplistic: Ed's love is genuine, but his dishonesty and temper cause the novel's deepest damage — the novel presents parents as capable of loving and failing at the same time.\"</div>"],
+ ["Order vs chaos","<p>Christopher survives through systems: maths, timetables, prime numbers, red cars, food that mustn't touch. London is the anti-system — noise, crowds, strangers, signs everywhere. The climax is literally a boy of order crossing a city of chaos, armed with logic.</p><div class='use'><b>Use it like this:</b> \"London tests Christopher precisely because it strips away every system he relies on — so surviving it proves his logic works even in chaos.\"</div>"],
+ ["Independence and growing up","<p>Track the arc: a boy who can't manage a strange bathroom ends up navigating the Underground alone. The growth is real but honest — he's terrified the whole way and copes <em>through</em> his methods, not by abandoning them. That's the point: independence on his own terms.</p><div class='use'><b>Use it like this:</b> \"Christopher doesn't overcome who he is — he discovers that who he is, is enough.\"</div>"],
+ ["Communication and perspective","<p>Almost every disaster in the novel is a failure of communication: hidden letters, unspoken resentments, adults assuming Christopher can't handle truth. Meanwhile the first-person narration forces the reader to live inside a perspective the other characters constantly misread.</p><div class='use'><b>Use it like this:</b> \"The novel makes the reader do what the characters fail to do: see the world from Christopher's perspective — and once we do, his 'strange' behaviour becomes perfectly logical.\"</div>"]
+];
+const QUIZ=[
+ ["Who killed Wellington?",["Mr Shears","Ed Boone","Mrs Alexander","A stranger"],1,"Ed killed him in rage after Mrs Shears rejected him."],
+ ["The chapters are numbered using…",["Even numbers","Square numbers","Prime numbers","Roman numerals"],2,"Primes — because Christopher loves them. Structure mirrors his mind."],
+ ["What does Christopher find hidden in Ed's cupboard?",["His confiscated book","Letters from his mother","A garden fork","Money for London"],1,"His mother's letters — dated after her 'death'. He was searching for his book."],
+ ["Seeing 4 red cars in a row means…",["A Black Day","A Quite Good Day","A Good Day","Nothing at all"],2,"A Good Day. 4 yellow cars = a Black Day."],
+ ["Why did Judy 'die' according to Ed?",["A car accident","A heart problem","She drowned","He never gave a reason"],1,"Ed told Christopher she died of a heart problem in hospital."],
+ ["Christopher travels alone to London to…",["Sit an exam","Escape the police","Find his mother","Visit Siobhan"],2,"He no longer feels safe with Ed, so he goes to the only safe person left: Judy."],
+ ["Who is Siobhan?",["His aunt","His teacher and mentor","A neighbour","A police officer"],1,"His teacher — she decodes the social world for him and encourages his book."],
+ ["Which exam does Christopher take?",["GCSE English","A-level Physics","A-level Maths","IEB Maths Paper 1"],2,"A-level Maths — years early — and he gets an A."],
+ ["Christopher dislikes metaphors because…",["They're too long","They're basically lies","They're old-fashioned","Siobhan banned them"],1,"They say something IS what it isn't — illogical and untrue to him. Similes are fine."],
+ ["What does Ed give Christopher near the end?",["A computer","A train ticket","A puppy called Sandy","A new book"],2,"Sandy — trust rebuilt as an action Christopher can accept, not just words."]
+];
+
+/* ---------- build timeline ---------- */
+const chain=document.getElementById('chain');
+EVENTS.forEach((e,i)=>{
+  const d=document.createElement('div');d.className='event';
+  d.innerHTML=`<button class="evhead"><span>${e[0]}</span><span class="idx">${String(i+1).padStart(2,'0')}/12</span></button>
+  <div class="evbody"><p>${e[1]}</p><div class="why"><b>→ which causes:</b> ${e[2]}</div></div>`;
+  d.querySelector('.evhead').addEventListener('click',()=>d.classList.toggle('open'));
+  chain.appendChild(d);
+});
+
+/* ---------- build character cards ---------- */
+const cards=document.getElementById('cards');
+CHARS.forEach(c=>{
+  const d=document.createElement('div');d.className='flip';d.setAttribute('tabindex','0');d.setAttribute('role','button');
+  d.innerHTML=`<div class="flip-inner">
+    <div class="face front"><div class="role">${c[1]}</div><h4>${c[0]}</h4><p>${c[2]}</p><div class="tap">tap to flip →</div></div>
+    <div class="face back">${c[3]}<div class="tap">tap to flip back</div></div></div>`;
+  const t=()=>d.classList.toggle('flipped');
+  d.addEventListener('click',t);
+  d.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});
+  cards.appendChild(d);
+});
+
+/* ---------- build themes ---------- */
+const th=document.getElementById('themes');
+THEMES.forEach(t=>{
+  const d=document.createElement('div');d.className='theme';
+  d.innerHTML=`<button><span>${t[0]}</span><span class="arrow">›</span></button><div class="tbody">${t[1]}</div>`;
+  d.querySelector('button').addEventListener('click',()=>d.classList.toggle('open'));
+  th.appendChild(d);
+});
+
+/* ---------- build quiz ---------- */
+const qz=document.getElementById('quiz'),carsEl=document.getElementById('cars');
+let score=0,answered=0;
+for(let i=0;i<10;i++){const c=document.createElement('div');c.className='car';carsEl.appendChild(c);}
+QUIZ.forEach((q,qi)=>{
+  const d=document.createElement('div');d.className='qcard';
+  d.innerHTML=`<div class="qn">QUESTION ${qi+1}/10</div><div class="qt">${q[0]}</div><div class="opts"></div><div class="fb"></div>`;
+  const opts=d.querySelector('.opts'),fb=d.querySelector('.fb');
+  q[1].forEach((o,oi)=>{
+    const b=document.createElement('button');b.className='opt';b.textContent=o;
+    b.addEventListener('click',()=>{
+      opts.querySelectorAll('.opt').forEach(x=>x.disabled=true);
+      answered++;
+      if(oi===q[2]){b.classList.add('correct');score++;fb.textContent='✓ Red car! '+q[3];fb.className='fb show good';}
+      else{b.classList.add('wrong');opts.children[q[2]].classList.add('correct');fb.textContent='✗ '+q[3];fb.className='fb show bad';}
+      updateMeter();
+    });
+    opts.appendChild(b);
+  });
+  qz.appendChild(d);
+});
+function updateMeter(){
+  document.getElementById('meter').style.display='flex';
+  document.getElementById('scnum').textContent=score;
+  [...carsEl.children].forEach((c,i)=>c.classList.toggle('lit',i<score));
+  const v=document.getElementById('verdict');
+  if(answered===10){
+    if(score>=8){v.textContent='GOOD DAY ✓';v.className='verdict good';}
+    else if(score>=5){v.textContent='QUITE GOOD DAY';v.className='verdict';}
+    else{v.textContent='BLACK DAY — revise & retry';v.className='verdict bad';}
+  } else {v.textContent=(10-answered)+' to go';v.className='verdict';}
+}
+
+/* ---------- mock memos ---------- */
+document.querySelectorAll('.reveal').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const m=b.parentElement.querySelector('.memo');
+    m.classList.toggle('show');
+    b.textContent=m.classList.contains('show')?'Hide memo':'Reveal memo';
+  });
+});
+
+/* ---------- REAL TEST (AI-marked, no memo) ---------- */
+const REAL=[
+ {id:"1.1",scene:"SCENE A — Picture the extract: Christopher is at Swindon station, then on the train and finally the London Underground. The noise, the crowds and the signs overwhelm him; at one point he stays frozen on a bench on the platform for a long time while trains come and go, and he later risks the tracks to rescue Toby.",
+  q:"Place this episode in context: what has driven Christopher to attempt this journey?",m:3},
+ {id:"1.2",q:"Explain why this journey is more difficult for Christopher than it would be for most people. Refer to specific details of how he experiences the station.",m:3},
+ {id:"1.3",q:"Discuss how this episode develops the theme of independence.",m:3},
+ {id:"1.4",q:"Comment on how the first-person narration makes the reader experience Christopher's panic.",m:3},
+ {id:"2.1",scene:"SCENE B — Picture the extract: the final section of the novel. Christopher is back in Swindon. Ed visits in short, scheduled sessions to rebuild trust, and gives Christopher a puppy named Sandy. Christopher receives an A for his A-level Maths, and ends his book by listing what he has achieved.",
+  q:"State TWO ways in which trust between Christopher and Ed begins to be rebuilt.",m:2},
+ {id:"2.2",q:"\u201cThe novel has a happy ending.\u201d Critically discuss this statement.",m:4},
+ {id:"2.3",q:"Explain the significance of Christopher ending his book with a list of his achievements.",m:3},
+ {id:"3",scene:"SECTION C — General questions on the whole novel.",
+  q:"Compare Ed and Judy as parents. Refer to at least one action of each in your answer.",m:4},
+ {id:"4",q:"Identify TWO unusual structural features of the novel and explain the effect of each.",m:3},
+ {id:"5",q:"In a short paragraph, discuss how the theme of truth and lies drives the plot of the novel from beginning to end.",m:3}
+];
+const REAL_TOTAL=REAL.reduce((s,r)=>s+r.m,0);
+const realWrap=document.getElementById('realq');
+REAL.forEach(r=>{
+  if(r.scene){const e=document.createElement('div');e.className='extract';e.innerHTML=`<div class="lab">${r.scene.split(' — ')[0]}</div>${r.scene.split(' — ').slice(1).join(' — ')}`;realWrap.appendChild(e);}
+  const d=document.createElement('div');d.className='mq';
+  d.innerHTML=`<div class="qline">${r.id} ${r.q} <span class="marks">(${r.m})</span></div>
+  <textarea data-rid="${r.id}" placeholder="Your answer..."></textarea>`;
+  realWrap.appendChild(d);
+});
+
+const MARK_SYS=`You are a strict but fair and encouraging IEB Grade 10 English Home Language examiner. You are marking a closed-book cycle test on "The Curious Incident of the Dog in the Night-Time" by Mark Haddon, written by a Grade 10 learner. Mark each answer the way a standard IEB memo would: award marks for valid, developed points supported by reference to the novel; award partial marks generously where a point is valid but undeveloped; award zero where an answer is factually wrong, blank, off-topic, or merely restates the question. For "critically discuss" and "compare" questions, reward balance and nuance. Be specific in comments: say exactly what earned marks and exactly what was missing. Keep each comment to 2-3 sentences and each modelAnswer to 2-3 sentences of what a full-mark answer would include. Respond with ONLY a JSON object, no markdown fences, no preamble, in this exact shape: {"questions":[{"id":"1.1","awarded":0,"outOf":3,"comment":"...","modelAnswer":"..."}],"total":0,"outOf":30,"overall":"3-4 sentence overall feedback with the learner's strongest skill and the single biggest thing to fix before the real test"}`;
+
+async function callMarker(userContent){
+  try{
+    const r=await fetch('/api/mark',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:userContent})});
+    if(!r.ok) throw new Error('proxy '+r.status);
+    return await r.json();
+  }catch(e){
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,system:MARK_SYS,messages:[{role:'user',content:userContent}]})});
+    if(!r.ok) throw new Error('Marking service unreachable');
+    return await r.json();
+  }
+}
+
+document.getElementById('submitTest').addEventListener('click',async()=>{
+  const btn=document.getElementById('submitTest'),st=document.getElementById('markStatus'),out=document.getElementById('markResults');
+  const answers=REAL.map(r=>({id:r.id,q:r.q,outOf:r.m,answer:(document.querySelector(`textarea[data-rid="${r.id}"]`).value||'').trim()}));
+  const blank=answers.filter(a=>!a.answer).length;
+  if(blank===answers.length){st.style.display='block';st.textContent='Write your answers first — the whole test is blank.';return;}
+  if(blank>0 && !confirm(blank+' question(s) are blank and will score 0. Submit anyway?')) return;
+  btn.disabled=true;st.style.display='block';st.textContent='Marking your test... the examiner is reading every answer (10\u201330 seconds).';out.innerHTML='';
+  const payload='Here is the test with the learner\u2019s answers. Mark it.\n\n'+answers.map(a=>`QUESTION ${a.id} (${a.outOf} marks): ${a.q}\nLEARNER\u2019S ANSWER: ${a.answer||'[left blank]'}`).join('\n\n');
+  try{
+    const data=await callMarker(payload);
+    const text=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+    const clean=text.replace(/```json|```/g,'').trim();
+    const res=JSON.parse(clean);
+    st.style.display='none';
+    const pct=Math.round(res.total/res.outOf*100);
+    const verdict=pct>=80?['GOOD DAY \u2713','var(--red)']:pct>=50?['QUITE GOOD DAY','var(--ink)']:['BLACK DAY \u2014 rewrite and retry','#8A6A15'];
+    let html=`<div class="callout" style="border-color:${verdict[1]}"><b style="color:${verdict[1]}">${res.total}/${res.outOf} (${pct}%) \u2014 ${verdict[0]}</b><br>${res.overall||''}</div>`;
+    (res.questions||[]).forEach(q=>{
+      const full=q.awarded===q.outOf;
+      html+=`<div class="qcard" style="border-left:6px solid ${full?'var(--red)':q.awarded>0?'var(--yellow)':'var(--ink)'}">
+        <div class="qn">QUESTION ${q.id} \u2014 <b style="color:${full?'var(--red-deep)':'var(--ink)'}">${q.awarded}/${q.outOf}</b></div>
+        <p style="font-size:13.5px;margin-bottom:8px">${q.comment||''}</p>
+        <div class="memo show" style="margin-top:0"><b>Full-mark answer would include:</b> ${q.modelAnswer||''}</div></div>`;
+    });
+    html+=`<div class="callout"><b>Next step:</b> rewrite every answer below full marks using the feedback \u2014 then hit submit again and beat your score.</div>`;
+    out.innerHTML=html;btn.disabled=false;btn.textContent='Resubmit after rewriting';
+    out.scrollIntoView({behavior:'smooth'});
+  }catch(err){
+    btn.disabled=false;st.textContent='Marking failed: '+err.message+'. If you opened this file directly, marking only works on the deployed (Vercel) version or inside Claude.';
+  }
+});
+
+/* ---------- tabs ---------- */
+const tabs=document.querySelectorAll('.tab');
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');
+  document.querySelectorAll('section').forEach(s=>s.classList.remove('show'));
+  document.getElementById('sec-'+t.dataset.t).classList.add('show');
+  document.getElementById('meter').style.display=(t.dataset.t==='quiz'&&answered>0)?'flex':'none';
+  window.scrollTo({top:0});
+}));
+</script>
 </body>
 </html>
